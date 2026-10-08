@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Dentico - integracje WordPress: CF7 (pola, radio, zgoda, komunikaty), baner zgody Complianz, honeypot.
+   Zasada jak w dentico.css: px wielokrotności 4 (linie 1-2 px), zero ułamków.
+   ========================================================================== */
+
+/* honeypot */
+.iab-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.iab-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* CF7 - układ jak .form z makiety */
+/* CF7: reguły z wtyczki (jej styles.css jest wyłączony w inc/enqueue.php, żeby nie blokował renderowania) */
+.wpcf7 .screen-reader-response { position: absolute; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; }
+.wpcf7 .hidden-fields-container { display: none; }
+.wpcf7 form.init .wpcf7-response-output, .wpcf7 form.resetting .wpcf7-response-output, .wpcf7 form.submitting .wpcf7-response-output { display: none; }
+.wpcf7-form-control-wrap { position: relative; }
+.wpcf7-spinner { visibility: hidden; display: inline-block; width: 24px; height: 24px; border-radius: 24px; border: 2px solid var(--line); border-top-color: var(--ink); vertical-align: middle; animation: dentico-spin 1000ms linear infinite; }
+form.submitting .wpcf7-spinner { visibility: visible; }
+@keyframes dentico-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .wpcf7-spinner { animation: none; } }
+.wpcf7 [inert] { opacity: 50%; }
+.wpcf7 form { display: grid; gap: 20px; }
+.wpcf7 form > p { margin: 0; }
+.wpcf7-form-control-wrap { display: block; }
+.wpcf7 .input, .wpcf7 .textarea { width: 100%; }
+.wpcf7 .seg { display: block; }
+.wpcf7 .seg legend { margin-bottom: 8px; }
+.wpcf7 .wpcf7-radio { display: flex; flex-wrap: wrap; gap: 8px; }
+.wpcf7 .wpcf7-list-item { margin: 0; }
+.wpcf7 .seg .wpcf7-list-item label { position: relative; display: block; }
+.wpcf7 .seg .wpcf7-list-item input { position: absolute; opacity: 0; }
+.wpcf7 .seg .wpcf7-list-item-label { display: inline-flex; align-items: center; min-height: 48px; padding: 0 20px; border: 1px solid #B5AA9A; border-radius: 4px; cursor: pointer; font-weight: 500; }
+.wpcf7 .seg input:checked + .wpcf7-list-item-label { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.wpcf7 .seg input:focus-visible + .wpcf7-list-item-label { outline: 2px solid var(--ink); outline-offset: 4px; }
+.wpcf7 .check-wrap .wpcf7-list-item label { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; color: var(--ink-2); cursor: pointer; }
+.wpcf7 .check-wrap input { width: 20px; height: 20px; margin: 4px 0 0; accent-color: var(--ink); }
+.wpcf7 .check-wrap a { text-decoration: underline; text-underline-offset: 4px; }
+.wpcf7 .note { font-size: 12px; line-height: 16px; color: var(--ink-2); margin: 0; }
+.wpcf7-not-valid-tip { display: block; margin-top: 8px; color: var(--alert); font-size: 16px; line-height: 24px; }
+.wpcf7 .wpcf7-not-valid { border-color: var(--alert); }
+.wpcf7 form .wpcf7-response-output { margin: 0; padding: 12px 16px; border: 1px solid var(--line); border-radius: 4px; font-size: 16px; line-height: 24px; }
+.wpcf7 form.invalid .wpcf7-response-output, .wpcf7 form.failed .wpcf7-response-output, .wpcf7 form.spam .wpcf7-response-output { border-color: var(--alert); color: var(--alert); }
+.wpcf7 form.sent .wpcf7-response-output { border-color: #3F8F5A; color: #2C6B42; }
+.wpcf7-spinner { margin: 0 0 0 12px; }
+.wpcf7 [type="submit"] { justify-self: start; }
+.wpcf7-form.submitting [type="submit"] { cursor: progress; }
+
+.wpcf7 .seg .wpcf7-form-control-wrap, .wpcf7 .seg .wpcf7-radio, .wpcf7 .seg .wpcf7-list-item { min-height: 0; padding: 0; border: 0; background: none; border-radius: 0; font-weight: 400; cursor: default; }
+.wpcf7 .seg .wpcf7-radio { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- Complianz: baner zgody w wyglądzie dawnego modala (wyśrodkowany, rozmyte tło, karta marki) ---------- */
+#cmplz-cookiebanner-container.cmplz-soft-cookiewall { background: #24221F8C !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.cmplz-cookiebanner.cmplz-center { width: 540px !important; max-width: calc(100% - 32px) !important; padding: 32px !important; border-radius: 8px !important; border-top: 4px solid #24221F !important; background: #F8F4EC !important; box-shadow: 0 32px 80px #24221F40 !important; font-family: "Switzer", system-ui, sans-serif !important; color: #554F47 !important; grid-gap: 0 !important; }
+.cmplz-cookiebanner .cmplz-header { display: block !important; }
+.cmplz-cookiebanner .cmplz-logo { display: none !important; }
+.cmplz-cookiebanner .cmplz-title { display: block !important; text-align: left !important; font: 400 28px/32px "Gambetta", Georgia, serif !important; color: #24221F !important; }
+.cmplz-cookiebanner .cmplz-title::before { content: ""; display: block; width: 44px; height: 44px; margin-bottom: 12px; border-radius: 4px; background: #EEE6DA url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2324221F' stroke-width='1'%3E%3Cpath d='M12 3a9 9 0 1 0 9 9 4 4 0 0 1-4-4 4 4 0 0 1-5-5z'/%3E%3Ccircle cx='8' cy='12' r='1'/%3E%3Ccircle cx='12' cy='16' r='1'/%3E%3Ccircle cx='15' cy='12' r='1'/%3E%3C/svg%3E") center no-repeat; }
+.cmplz-cookiebanner .cmplz-divider { display: none !important; }
+.cmplz-cookiebanner .cmplz-body { margin-top: 12px !important; }
+.cmplz-cookiebanner .cmplz-message { font-size: 16px !important; line-height: 28px !important; color: #554F47 !important; }
+.cmplz-cookiebanner .cmplz-message a { color: #24221F !important; text-decoration: underline !important; text-underline-offset: 4px; }
+.cmplz-cookiebanner .cmplz-buttons { display: flex !important; flex-wrap: wrap !important; align-items: center !important; gap: 12px !important; margin-top: 24px !important; }
+.cmplz-cookiebanner .cmplz-btn { flex: none !important; width: auto !important; min-height: 48px !important; height: auto !important; padding: 0 24px !important; border-radius: 4px !important; font: 500 16px/24px "Switzer", system-ui, sans-serif !important; transition: background 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out; }
+.cmplz-cookiebanner .cmplz-accept { background: #24221F !important; border: 1px solid #24221F !important; color: #F8F4EC !important; }
+.cmplz-cookiebanner .cmplz-accept:hover { background: #000000 !important; border-color: #000000 !important; }
+.cmplz-cookiebanner .cmplz-deny { background: transparent !important; border: 1px solid #DCD2C4 !important; color: #24221F !important; }
+.cmplz-cookiebanner .cmplz-deny:hover { background: #24221F !important; border-color: #24221F !important; color: #F8F4EC !important; }
+.cmplz-cookiebanner .cmplz-view-preferences, .cmplz-cookiebanner .cmplz-manage-options { margin-left: auto !important; padding: 0 !important; background: none !important; border: 0 !important; color: #24221F !important; text-decoration: underline !important; text-underline-offset: 4px; }
+.cmplz-cookiebanner .cmplz-save-preferences { background: transparent !important; border: 1px solid #DCD2C4 !important; color: #24221F !important; }
+.cmplz-cookiebanner .cmplz-links { display: none !important; }
+/* preferencje: kategorie jako wiersze z opisem i przełącznikiem */
+.cmplz-cookiebanner .cmplz-categories { margin-top: 16px !important; border-top: 1px solid #DCD2C4; }
+.cmplz-cookiebanner .cmplz-category { background: none !important; border-radius: 0 !important; border-bottom: 1px solid #DCD2C4 !important; margin: 0 !important; }
+.cmplz-cookiebanner .cmplz-category summary { padding: 12px 0 !important; }
+.cmplz-cookiebanner .cmplz-category-title { font: 400 20px/24px "Gambetta", Georgia, serif !important; color: #24221F !important; }
+.cmplz-cookiebanner .cmplz-always-active { color: #24221F !important; font-weight: 500 !important; }
+.cmplz-cookiebanner .cmplz-description { padding: 0 0 12px !important; font-size: 16px !important; line-height: 24px !important; color: #554F47 !important; }
+/* zakładka „Ustawienia cookies” (zmiana zgody): mała, w lewym dolnym rogu, nie zasłania szuflady, modala ani paska mobilnego */
+#cmplz-manage-consent .cmplz-manage-consent { left: 16px !important; right: auto !important; bottom: 16px !important; height: auto !important; min-height: 40px; padding: 8px 16px !important; border-radius: 4px !important; background: #24221F !important; color: #F8F4EC !important; border: 0 !important; font: 500 12px/16px "Switzer", system-ui, sans-serif !important; letter-spacing: 0 !important; box-shadow: 0 8px 24px #24221F33 !important; animation: none !important; }
+html:has(.drawer.is-open) #cmplz-manage-consent, html:has(.modal[open]) #cmplz-manage-consent { display: none !important; }
+@media (width < 1200px) { #cmplz-manage-consent .cmplz-manage-consent { bottom: 88px !important; } }
+@media (width < 600px) {
+  .cmplz-cookiebanner.cmplz-center { padding: 24px !important; max-height: calc(100vh - 32px); overflow-y: auto; }
+  .cmplz-cookiebanner .cmplz-buttons { flex-direction: column !important; align-items: stretch !important; }
+  .cmplz-cookiebanner .cmplz-buttons .cmplz-btn { width: 100% !important; }
+  .cmplz-cookiebanner .cmplz-view-preferences, .cmplz-cookiebanner .cmplz-manage-options { margin: 0 !important; min-height: 40px !important; }
+}
+/* nagłówek do lewej (Complianz centruje go w siatce i chowa na wąskich ekranach) */
+.cmplz-cookiebanner .cmplz-header { display: flex !important; flex-direction: column !important; align-items: flex-start !important; grid-template-columns: none !important; }
+.cmplz-cookiebanner .cmplz-header .cmplz-title { display: block !important; }
+/* etykiety tylko dla czytników ekranu (klasa WordPressa używana przez Complianz) */
+.screen-reader-text { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* przełączniki kategorii */
+.cmplz-cookiebanner .cmplz-categories .cmplz-category .cmplz-banner-checkbox input.cmplz-consent-checkbox { width: 40px !important; height: 24px !important; top: -12px !important; margin: 0 !important; }
+.cmplz-cookiebanner .cmplz-categories .cmplz-category .cmplz-banner-checkbox .cmplz-label { padding-left: 40px !important; }
+.cmplz-cookiebanner .cmplz-categories .cmplz-category .cmplz-banner-checkbox .cmplz-label::before { width: 40px !important; height: 24px !important; top: -12px !important; padding: 0 !important; border-radius: 24px !important; }
+.cmplz-cookiebanner .cmplz-categories .cmplz-category .cmplz-banner-checkbox .cmplz-label::after { width: 16px !important; height: 16px !important; top: -8px !important; left: 4px !important; border-radius: 16px !important; }
+.cmplz-cookiebanner .cmplz-categories .cmplz-category .cmplz-banner-checkbox input.cmplz-consent-checkbox:checked + .cmplz-label::after { left: 20px !important; }
+.cmplz-cookiebanner .cmplz-categories .cmplz-category .cmplz-banner-checkbox input.cmplz-consent-checkbox:focus-visible + .cmplz-label::before { box-shadow: 0 0 0 2px #AA873D !important; }
+.cmplz-cookiebanner .cmplz-category .cmplz-icon svg { width: 12px; height: 12px; }
+/* zmiana zgody dostępna także na telefonie (Complianz ukrywa zakładkę poniżej 768 px) */
+/* pływający przycisk Complianz nachodził na treść (opinie na 390, copyright w stopce na 1440) - zmiana zgody: link „Ustawienia cookies" w stopce (dentico.js) */
+#cmplz-manage-consent { display: none !important; }
+
+/* reCAPTCHA v3: plakietka ukryta (adnotacja jest w stopce, wymóg Google) */
+.grecaptcha-badge { visibility: hidden !important; }
+
+/* ---------- Trustindex (opinie Google): wygląd motywu zamiast domyślnego Poppins + szare karty ----------
+   Podsumowanie („Doskonała”, 292) jest w ciemnej karcie obok, więc stopkę widżetu ukrywamy, a karty zajmują całą szerokość. */
+body .ti-wrap .ti-widget.ti-goog .ti-widget-container, body .ti-wrap .ti-widget.ti-goog .ti-widget-container * { font-family: "Switzer", system-ui, sans-serif !important; }
+body .ti-wrap .ti-widget.ti-goog .ti-widget-container { margin-bottom: 0; color: #24221F; }
+body .ti-wrap .ti-widget.ti-goog .ti-footer { display: none !important; }
+body .ti-wrap .ti-widget.ti-goog .ti-widget-container .ti-reviews-container { flex: 0 0 100% !important; max-width: 100% !important; }
+body .ti-wrap .ti-widget.ti-goog .ti-reviews-container-wrapper { margin: 0 -8px !important; padding-top: 0; }
+body .ti-wrap .ti-widget.ti-goog .ti-review-item { padding: 0 8px !important; }
+body .ti-wrap .ti-widget.ti-goog .ti-review-item > .ti-inner { height: 100%; padding: 24px !important; border: 1px solid #DCD2C4 !important; border-radius: 8px !important; background-color: #F8F4EC !important; }
+body .ti-wrap .ti-widget.ti-goog .ti-widget-container .ti-name { font-size: 16px; line-height: 24px; font-weight: 500; color: #24221F; }
+body .ti-wrap .ti-widget.ti-goog .ti-widget-container .ti-date { font-size: 12px; line-height: 16px; color: #554F47; }
+body .ti-wrap .ti-widget.ti-goog .ti-reviews-container-wrapper .ti-inner > .ti-stars { margin: 16px 0 12px; }
+body .ti-wrap .ti-widget.ti-goog .ti-widget-container .ti-review-content { font-size: 16px; line-height: 24px; color: #24221F; }
+/* wtyczka trzyma zwinięty tekst w stałej wysokości 87 (4 linie po 21,75): przy naszej interlinii 24 px to 3 linie + kawałek 4., więc w stanie zwiniętym 3 linie i przycięte 15 px */
+body .ti-wrap .ti-widget.ti-goog .ti-widget-container .ti-review-content:not([style]), body .ti-wrap .ti-widget.ti-goog .ti-widget-container .ti-review-content[style*="height: 87"] { -webkit-line-clamp: 3; clip-path: inset(0 0 16px 0); }
+body .ti-wrap .ti-widget.ti-goog .ti-read-more { padding-top: 12px; }
+body .ti-wrap .ti-widget.ti-goog .ti-read-more span { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: #24221F; opacity: 1; text-decoration: underline !important; text-underline-offset: 4px; }
+body .ti-wrap .ti-widget.ti-goog .ti-controls .ti-next { right: -20px; }
+body .ti-wrap .ti-widget.ti-goog .ti-controls .ti-prev { left: -20px; }
+body .ti-wrap .ti-widget.ti-goog .ti-controls .ti-next, body .ti-wrap .ti-widget.ti-goog .ti-controls .ti-prev { width: 40px; height: 40px; border-radius: 40px; outline: 0; border: 1px solid #DCD2C4; background-color: #F8F4EC; box-shadow: none; }
+body .ti-wrap .ti-widget.ti-goog .ti-controls .ti-next:hover, body .ti-wrap .ti-widget.ti-goog .ti-controls .ti-prev:hover { border-color: #24221F; }
+body .ti-wrap .ti-widget.ti-goog .ti-controls-line { margin: 24px auto 0; background: #DCD2C4; }
+body .ti-wrap .ti-widget.ti-goog .ti-controls-line .dot { background: #24221F; }
